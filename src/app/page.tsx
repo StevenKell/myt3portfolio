@@ -1,53 +1,36 @@
 import Link from "next/link";
 
-import { LatestPost } from "~/app/_components/post";
-import { api, HydrateClient } from "~/trpc/server";
 
-export default async function Home() {
-  const hello = await api.post.hello({ text: "from tRPC" });
 
-  void api.post.getLatest.prefetch();
 
-  return (
-    <HydrateClient>
-      <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
-        <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
-          <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
-            Create <span className="text-[hsl(280,100%,70%)]">T3</span> App
-          </h1>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
-            <Link
-              className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 hover:bg-white/20"
-              href="https://create.t3.gg/en/usage/first-steps"
-              target="_blank"
-            >
-              <h3 className="text-2xl font-bold">First Steps →</h3>
-              <div className="text-lg">
-                Just the basics - Everything you need to know to set up your
-                database and authentication.
-              </div>
-            </Link>
-            <Link
-              className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 hover:bg-white/20"
-              href="https://create.t3.gg/en/introduction"
-              target="_blank"
-            >
-              <h3 className="text-2xl font-bold">Documentation →</h3>
-              <div className="text-lg">
-                Learn more about Create T3 App, the libraries it uses, and how
-                to deploy it.
-              </div>
-            </Link>
-          </div>
-          <div className="flex flex-col items-center gap-2">
-            <p className="text-2xl text-white">
-              {hello ? hello.greeting : "Loading tRPC query..."}
-            </p>
-          </div>
 
-          <LatestPost />
-        </div>
+const mockUrls = [
+  "https://utfs.io/f/239a2815-eedb-49b0-b4c1-d4e8a77a45d3-b9zy5u.png",
+  "https://utfs.io/f/0475427c-56d8-4462-bed6-ec65f81e7083-saqhwg.png",
+  "https://utfs.io/f/01d966b8-1089-4eea-9d8c-887a5585321f-pf8os.png",
+  "https://utfs.io/f/80fbf5f5-07c7-4a7f-8f2c-5fe039fa4a80-f4rkiy.png",
+  "https://utfs.io/f/31209c23-4c17-454b-8f2d-0a203aa86769-oup5el.png",
+  "https://utfs.io/f/e7858140-31ff-4eed-962a-6a74aff26433-q8jlar.png"
+];
+
+const mockImages = mockUrls.map((url, index) => ({
+  id: index + 1,
+  url,
+}));
+
+export default function HomePage() {
+   return (
+    <main className="">
+      <div className="flex flex-wrap">{
+        mockImages.map((image) => (
+          <div key={image.id} className="w-48 p-4">
+            <img src={image.url} alt="image" />
+         </div> ))
+         }
+
+      </div>
+        
       </main>
-    </HydrateClient>
+    
   );
 }
