@@ -3,7 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "homepage": "https://stevenkell.github.io/myt3portfolio",
+
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "build": "next build",
     "dev": "next dev",
     "lint": "next lint",
